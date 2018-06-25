@@ -48,20 +48,30 @@ UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.inputAccessoryView = accV
+    }
+    
     @IBOutlet weak var accountValue: UITextField!
     @IBOutlet weak var pipRisk: UITextField!
     @IBOutlet weak var USDRisk: UILabel!
     @IBOutlet weak var currencyPairPicker: UIPickerView!
     
+    let accV: UIView! = UINib(nibName: "AccessoryView", bundle: nil).instantiate(withOwner: nil)[0] as! UIView
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        for v in accV.subviews {
+            let btn = v as! UIButton
+            
+            btn.addTarget(self, action: #selector(btnPress(sender:)), for: .touchUpInside)
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @objc func btnPress(sender: UIButton) {
+        print(sender.currentTitle)
     }
-
+    
 }
 

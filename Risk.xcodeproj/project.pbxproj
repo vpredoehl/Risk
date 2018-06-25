@@ -12,6 +12,7 @@
 		086CBF2720DC91EC00E5A54B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 086CBF2520DC91EC00E5A54B /* Main.storyboard */; };
 		086CBF2920DC91ED00E5A54B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 086CBF2820DC91ED00E5A54B /* Assets.xcassets */; };
 		086CBF2C20DC91ED00E5A54B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 086CBF2A20DC91ED00E5A54B /* LaunchScreen.storyboard */; };
+		086CBF3420E1779600E5A54B /* AccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 086CBF3320E1779600E5A54B /* AccessoryView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		086CBF2820DC91ED00E5A54B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		086CBF2B20DC91ED00E5A54B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		086CBF2D20DC91ED00E5A54B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		086CBF3320E1779600E5A54B /* AccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccessoryView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				086CBF2820DC91ED00E5A54B /* Assets.xcassets */,
 				086CBF2A20DC91ED00E5A54B /* LaunchScreen.storyboard */,
 				086CBF2D20DC91ED00E5A54B /* Info.plist */,
+				086CBF3320E1779600E5A54B /* AccessoryView.xib */,
 			);
 			path = Risk;
 			sourceTree = "<group>";
@@ -123,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				086CBF2C20DC91ED00E5A54B /* LaunchScreen.storyboard in Resources */,
+				086CBF3420E1779600E5A54B /* AccessoryView.xib in Resources */,
 				086CBF2920DC91ED00E5A54B /* Assets.xcassets in Resources */,
 				086CBF2720DC91EC00E5A54B /* Main.storyboard in Resources */,
 			);
