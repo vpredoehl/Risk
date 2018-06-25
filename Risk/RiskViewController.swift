@@ -49,7 +49,13 @@ UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        let acctBtn = accV.viewWithTag(1) as! UIButton
+        let riskBtn = accV.viewWithTag(2) as! UIButton
+        
+        
         textField.inputAccessoryView = accV
+        acctBtn.isSelected = textField.tag == 1
+        riskBtn.isSelected = textField.tag == 2
     }
     
     @IBOutlet weak var accountValue: UITextField!
@@ -70,6 +76,19 @@ UITextFieldDelegate {
     }
     
     @objc func btnPress(sender: UIButton) {
+        switch sender.tag {
+        case 1:
+            accountValue.becomeFirstResponder()
+            accountValue.isSelected = true
+            pipRisk.isSelected = false
+        case 2:
+            pipRisk.becomeFirstResponder()
+            accountValue.isSelected = false
+            pipRisk.isSelected = true
+        case 3:
+            view.endEditing(true)
+        default: break
+        }
         print(sender.currentTitle)
     }
     
