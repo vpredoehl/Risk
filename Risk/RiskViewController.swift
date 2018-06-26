@@ -28,6 +28,18 @@ let cost = [ "AUD/CAD": 8.06, "AUD/CHF": 10.23,
               "USD/TRY": 4.36, "XAG/USD": 10, "XAU/USD":10, "XTI/USD": 10, "XBR/USD": 10 ]
 
 let pair = Array(cost.keys).sorted()
+let decimalF: NumberFormatter = {
+    let nf = NumberFormatter()
+    nf.numberStyle = .decimal
+    nf.minimumFractionDigits = 0
+    nf.maximumFractionDigits = 3
+    return nf
+}()
+let currencyF: NumberFormatter = {
+    let nf = NumberFormatter()
+    nf.numberStyle = .currency
+    return nf
+}()
 
 class RiskViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource,
 UITextFieldDelegate {
@@ -104,6 +116,7 @@ UITextFieldDelegate {
             else
         {
             USDRisk.text = ""
+            availLots.text = ""
             return
         }
         let sel = currencyPairPicker.selectedRow(inComponent: 0)
@@ -112,8 +125,8 @@ UITextFieldDelegate {
         let lots = acctR * acctV / ( pipR * pipCost )
         let riskUSD = acctV * acctR
         
-        USDRisk.text = "\(riskUSD)"
-        availLots.text = "\(lots)"
+        USDRisk.text = currencyF.string(from: NSNumber(value: riskUSD))
+        availLots.text = decimalF.string(from: NSNumber(value: lots))
     }
     
     @objc func btnPress(sender: UIButton) {
@@ -135,7 +148,6 @@ UITextFieldDelegate {
             pipRisk.isSelected = true
         case .Done:
             view.endEditing(true)
-        default: break
         }
     }
     
