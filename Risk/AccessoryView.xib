@@ -16,25 +16,31 @@
             <rect key="frame" x="0.0" y="0.0" width="340" height="38"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUI-mM-Ibv">
-                    <rect key="frame" x="81" y="4" width="30" height="30"/>
-                    <state key="normal" title="Risk"/>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOG-0S-w6w">
+                    <rect key="frame" x="16" y="4" width="99" height="30"/>
+                    <state key="normal" title="Account Value"/>
                 </button>
-                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1I-i7-xwe">
+                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1I-i7-xwe">
                     <rect key="frame" x="287" y="4" width="37" height="30"/>
                     <state key="normal" title="Done"/>
                 </button>
-                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOG-0S-w6w">
-                    <rect key="frame" x="16" y="4" width="57" height="30"/>
-                    <state key="normal" title="Account"/>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVK-MA-wlz">
+                    <rect key="frame" x="123" y="4" width="45" height="30"/>
+                    <state key="normal" title="Risk %"/>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUI-mM-Ibv">
+                    <rect key="frame" x="176" y="4" width="55" height="30"/>
+                    <state key="normal" title="Pip Risk"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="UVK-MA-wlz" firstAttribute="leading" secondItem="HOG-0S-w6w" secondAttribute="trailing" constant="8" symbolic="YES" id="3W2-Up-K9g"/>
                 <constraint firstItem="TUI-mM-Ibv" firstAttribute="centerY" secondItem="HOG-0S-w6w" secondAttribute="centerY" id="3ac-lb-wwg"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="O1I-i7-xwe" secondAttribute="trailing" constant="16" id="9WJ-rF-4Qh"/>
                 <constraint firstItem="O1I-i7-xwe" firstAttribute="centerY" secondItem="HOG-0S-w6w" secondAttribute="centerY" id="C7R-Uj-dHw"/>
-                <constraint firstItem="TUI-mM-Ibv" firstAttribute="leading" secondItem="HOG-0S-w6w" secondAttribute="trailing" constant="8" symbolic="YES" id="Tox-yI-MLv"/>
+                <constraint firstItem="UVK-MA-wlz" firstAttribute="centerY" secondItem="HOG-0S-w6w" secondAttribute="centerY" id="P3f-Lb-HKw"/>
+                <constraint firstItem="TUI-mM-Ibv" firstAttribute="leading" secondItem="UVK-MA-wlz" secondAttribute="trailing" constant="8" symbolic="YES" id="PG9-LT-uWh"/>
                 <constraint firstItem="HOG-0S-w6w" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="jvx-cE-KBU"/>
                 <constraint firstItem="HOG-0S-w6w" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="yOI-sj-PWq"/>
             </constraints>

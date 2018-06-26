@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum EditField: Int {
+    case AccountValue = 1
+    case AccountRisk
+    case PipRisk
+    case Done
+}
 let cost = [ "AUD/CAD": 8.06, "AUD/CHF": 10.23,
               "AUD/JPY" : 8.83, "AUD/NZD" : 7.16, "AUD/USD" : 10,
               "CAD/CHF" : 10.23, "CAD/JPY" : 8.83, "CHF/JPY" : 8.83,
@@ -42,54 +48,95 @@ UITextFieldDelegate {
         lab.sizeToFit()
         return lab
     }
-    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        calculate(tf: nil)
+    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let acctBtn = accV.viewWithTag(1) as! UIButton
-        let riskBtn = accV.viewWithTag(2) as! UIButton
+        let accountValueBtn = inputAV.viewWithTag(EditField.AccountValue.rawValue) as! UIButton
+        let accountRiskBtn = inputAV.viewWithTag(EditField.AccountRisk.rawValue) as! UIButton
+        let pipRiskBtn = inputAV.viewWithTag(EditField.PipRisk.rawValue) as! UIButton
         
         
-        textField.inputAccessoryView = accV
-        acctBtn.isSelected = textField.tag == 1
-        riskBtn.isSelected = textField.tag == 2
+        textField.inputAccessoryView = inputAV
+        accountValueBtn.isSelected = textField.tag == EditField.AccountValue.rawValue
+        accountRiskBtn.isSelected = textField.tag == EditField.AccountRisk.rawValue
+        pipRiskBtn.isSelected = textField.tag == EditField.PipRisk.rawValue
     }
     
     @IBOutlet weak var accountValue: UITextField!
+    @IBOutlet weak var accountRisk: UITextField!
     @IBOutlet weak var pipRisk: UITextField!
     @IBOutlet weak var USDRisk: UILabel!
+    @IBOutlet weak var availLots: UILabel!
     @IBOutlet weak var currencyPairPicker: UIPickerView!
     
-    let accV: UIView! = UINib(nibName: "AccessoryView", bundle: nil).instantiate(withOwner: nil)[0] as! UIView
+    let inputAV: UIView! = UINib(nibName: "AccessoryView", bundle: nil).instantiate(withOwner: nil)[0] as! UIView
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for v in accV.subviews {
+        for v in inputAV.subviews {
             let btn = v as! UIButton
             
             btn.addTarget(self, action: #selector(btnPress(sender:)), for: .touchUpInside)
+            
         }
+        accountValue.addTarget(self, action: #selector(calculate(tf:)), for: .editingChanged)
+        accountRisk.addTarget(self, action: #selector(calculate(tf:)), for: .editingChanged)
+        pipRisk.addTarget(self, action: #selector(calculate(tf:)), for: .editingChanged)
+        
+        accountValue.clearsOnInsertion = true
+        accountRisk.clearsOnInsertion = true
+        pipRisk.clearsOnInsertion = true
+    }
+    
+    @objc
+    func calculate(tf: UITextField?) {
+        guard let acctV = Double(accountValue.text!),
+            let acctR = Double(accountRisk.text!),
+            let pipR = Double(pipRisk.text!)
+            else
+        {
+            USDRisk.text = ""
+            return
+        }
+        let sel = currencyPairPicker.selectedRow(inComponent: 0)
+        let v = currencyPairPicker.view(forRow: sel, forComponent: 0) as! UILabel
+        let pipCost = cost[v.text!]!
+        let lots = acctR * acctV / ( pipR * pipCost )
+        let riskUSD = acctV * acctR
+        
+        USDRisk.text = "\(riskUSD)"
+        availLots.text = "\(lots)"
     }
     
     @objc func btnPress(sender: UIButton) {
-        switch sender.tag {
-        case 1:
+        switch EditField(rawValue: sender.tag)! {
+        case .AccountValue:
             accountValue.becomeFirstResponder()
             accountValue.isSelected = true
+            accountRisk.isSelected = false
             pipRisk.isSelected = false
-        case 2:
+        case .AccountRisk:
+            accountRisk.becomeFirstResponder()
+            accountValue.isSelected = false
+            accountRisk.isSelected = true
+            pipRisk.isSelected = false
+        case .PipRisk:
             pipRisk.becomeFirstResponder()
             accountValue.isSelected = false
+            accountRisk.isSelected = false
             pipRisk.isSelected = true
-        case 3:
+        case .Done:
             view.endEditing(true)
         default: break
         }
-        print(sender.currentTitle)
     }
     
 }
