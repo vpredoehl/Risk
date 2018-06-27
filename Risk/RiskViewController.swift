@@ -122,8 +122,8 @@ UITextFieldDelegate {
         let sel = currencyPairPicker.selectedRow(inComponent: 0)
         let v = currencyPairPicker.view(forRow: sel, forComponent: 0) as! UILabel
         let pipCost = cost[v.text!]!
-        let lots = acctR * acctV / ( pipR * pipCost )
-        let riskUSD = acctV * acctR
+        let lots = acctR / 100.0 * acctV / ( pipR * pipCost )
+        let riskUSD = acctV * acctR / 100.0
         
         USDRisk.text = currencyF.string(from: NSNumber(value: riskUSD))
         availLots.text = decimalF.string(from: NSNumber(value: lots))
