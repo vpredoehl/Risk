@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pip Risk" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UlD-5T-ytK">
-                                <rect key="frame" x="151.5" y="82" width="72.5" height="30"/>
+                                <rect key="frame" x="151.5" y="314.5" width="72.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
@@ -29,26 +29,19 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1g4-80-3Zq">
-                                <rect key="frame" x="187.5" y="153.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="187.5" y="387" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD Risk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yY5-6j-QZM">
-                                <rect key="frame" x="108.5" y="133" width="71" height="20.5"/>
+                                <rect key="frame" x="108.5" y="367" width="71" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftK-Zv-PHg">
-                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="lrh-gU-lbf"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="cuy-KZ-0r4"/>
-                                </connections>
-                            </pickerView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VTq-fM-ibW">
-                                <rect key="frame" x="95" y="44" width="185.5" height="30"/>
+                                <rect key="frame" x="95" y="276.5" width="185.5" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Value" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Cz0-P3-Bze">
                                         <rect key="frame" x="0.0" y="0.0" width="114" height="30"/>
@@ -71,30 +64,37 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCi-GW-mYI">
-                                <rect key="frame" x="187.5" y="172.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="187.5" y="406" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Lots:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7g-OY-OL4">
-                                <rect key="frame" x="70" y="161.5" width="109.5" height="20.5"/>
+                                <rect key="frame" x="70.5" y="395" width="109.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftK-Zv-PHg">
+                                <rect key="frame" x="0.0" y="28" width="375" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="lrh-gU-lbf"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="cuy-KZ-0r4"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ftK-Zv-PHg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EAv-Ns-g4q"/>
+                            <constraint firstItem="VTq-fM-ibW" firstAttribute="top" secondItem="ftK-Zv-PHg" secondAttribute="bottom" multiplier="1.1" constant="8" symbolic="YES" id="Egp-o7-SS3"/>
                             <constraint firstItem="yY5-6j-QZM" firstAttribute="trailing" secondItem="g7g-OY-OL4" secondAttribute="trailing" id="NOs-Qn-RGi"/>
-                            <constraint firstItem="ftK-Zv-PHg" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R5S-r1-Y0E"/>
                             <constraint firstItem="g7g-OY-OL4" firstAttribute="top" secondItem="yY5-6j-QZM" secondAttribute="bottom" constant="8" symbolic="YES" id="Z8P-Im-cae"/>
-                            <constraint firstItem="1g4-80-3Zq" firstAttribute="top" secondItem="UlD-5T-ytK" secondAttribute="bottom" multiplier="1.3" constant="8" symbolic="YES" id="ZwR-t7-C4o"/>
+                            <constraint firstItem="ftK-Zv-PHg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="ZbH-70-odc"/>
+                            <constraint firstItem="1g4-80-3Zq" firstAttribute="top" secondItem="UlD-5T-ytK" secondAttribute="bottom" multiplier="1.1" constant="8" symbolic="YES" id="ZwR-t7-C4o"/>
                             <constraint firstItem="ftK-Zv-PHg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="a30-sU-DXk"/>
                             <constraint firstItem="VTq-fM-ibW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c5K-ZN-qxd"/>
                             <constraint firstItem="1g4-80-3Zq" firstAttribute="baseline" secondItem="yY5-6j-QZM" secondAttribute="baseline" id="f48-jW-SE7"/>
-                            <constraint firstItem="Cz0-P3-Bze" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="hiM-tv-vJt"/>
                             <constraint firstItem="UlD-5T-ytK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iaX-Hl-Yme"/>
                             <constraint firstItem="1g4-80-3Zq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jDr-lA-NQj"/>
                             <constraint firstItem="UlD-5T-ytK" firstAttribute="top" secondItem="VTq-fM-ibW" secondAttribute="bottom" constant="8" symbolic="YES" id="odL-8Y-ow4"/>
