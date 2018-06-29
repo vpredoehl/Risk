@@ -111,7 +111,7 @@ UITextFieldDelegate {
     @objc
     func calculate(tf: UITextField?) {
         guard let acctV = Double(accountValue.text!),
-            let acctR = Double(accountRisk.text!),
+            let acctR = decimalF.number(from: accountRisk.text!) as? Double,
             let pipR = Double(pipRisk.text!)
             else
         {
