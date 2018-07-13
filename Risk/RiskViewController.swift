@@ -151,6 +151,8 @@ UITextFieldDelegate {
         pipRiskBtn.isSelected = textField.tag == EditField.PipRisk.rawValue
     }
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        pickerIVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Picker") as? PickerIVC
+        pickerIVC?.dismissDelegate = self
         showPicker = true
         becomeFirstResponder()
     }
@@ -166,15 +168,11 @@ UITextFieldDelegate {
     
     
     let inputAV: UIView! = UINib(nibName: "AccessoryView", bundle: nil).instantiate(withOwner: nil)[0] as! UIView
-    let pickerIVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Picker") as! UIInputViewController
+    var pickerIVC: PickerIVC?
     var showPicker = false
 
-    override var inputView: UIView? {
-        get {   return pickerIVC.inputView    }
-        set {   print("setting inputView")  }
-    }
-//    override var inputViewController: UIInputViewController?    {   get {   return pickerIVC    }   }
-    override var canBecomeFirstResponder: Bool  {   get {   return showPicker}  }
+    override var inputView: UIView? {   get {   return pickerIVC?.inputView    } }
+    override var canBecomeFirstResponder: Bool  {   get {   return showPicker   }  }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,15 +190,20 @@ UITextFieldDelegate {
         accountValue.clearsOnInsertion = true
         accountRisk.clearsOnInsertion = true
         pipRisk.clearsOnInsertion = true
-        
-//        let picker = pickerIVC.view.viewWithTag(1) as! UIPickerView
-//        
-//        picker.delegate = self
-//        picker.dataSource = self
     }
     
-    @objc
-    func calculate(tf: UITextField?) {
+    func dismissPicker(currencyPair p: String) {
+        resignFirstResponder()
+        pickerIVC = nil
+        
+        guard p != "" else {
+            return
+        }
+        currencyPairLabel.text = p
+        calculate(tf: nil)
+    }
+    
+    @objc func calculate(tf: UITextField?) {
         guard let acctV = Double(accountValue.text!),
             let acctR = decimalF.number(from: accountRisk.text!) as? Double,
             let pipR = Double(pipRisk.text!)
@@ -245,6 +248,8 @@ UITextFieldDelegate {
 }
 
 class PickerIVC: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
+    weak var dismissDelegate: UIViewController?
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -263,7 +268,7 @@ class PickerIVC: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return lab
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("called didSelectRow")
+        (dismissDelegate as? RiskViewController)?.dismissPicker(currencyPair: pair[row])
     }
     
     override func viewDidLoad() {
@@ -274,6 +279,9 @@ class PickerIVC: UIInputViewController, UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("Picker Did Appear")
+    }
+    @IBAction func dismiss(_ sender: Any) {
+        (dismissDelegate as? RiskViewController)?.dismissPicker(currencyPair: "")
     }
 }
 
