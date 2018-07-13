@@ -224,27 +224,23 @@
         <scene sceneID="ppl-ue-nKV">
             <objects>
                 <viewController storyboardIdentifier="Picker" title="Picker" id="34p-Lp-0IQ" customClass="PickerIVC" customModule="Risk" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2xY-WW-qOO">
+                    <view key="view" contentMode="scaleToFill" id="2xY-WW-qOO" customClass="UIInputView">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ad4-Wd-6Ee">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="34p-Lp-0IQ" id="8Sc-Wf-UiW"/>
+                                    <outlet property="delegate" destination="34p-Lp-0IQ" id="SQm-GI-zJ7"/>
+                                </connections>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency Pair" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eS-2w-VEk">
-                                <rect key="frame" x="188" y="149.5" width="104" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8eS-2w-VEk" firstAttribute="centerX" secondItem="2xY-WW-qOO" secondAttribute="centerX" id="81A-g0-liq"/>
                             <constraint firstItem="ad4-Wd-6Ee" firstAttribute="trailing" secondItem="C01-sj-zXn" secondAttribute="trailing" id="Q2O-vV-tBn"/>
                             <constraint firstItem="C01-sj-zXn" firstAttribute="bottom" secondItem="ad4-Wd-6Ee" secondAttribute="bottom" id="SV5-Qe-01e"/>
                             <constraint firstItem="ad4-Wd-6Ee" firstAttribute="top" secondItem="C01-sj-zXn" secondAttribute="top" id="XOu-a2-y5v"/>
-                            <constraint firstItem="8eS-2w-VEk" firstAttribute="centerY" secondItem="2xY-WW-qOO" secondAttribute="centerY" id="bGc-3X-H1v"/>
                             <constraint firstItem="ad4-Wd-6Ee" firstAttribute="leading" secondItem="C01-sj-zXn" secondAttribute="leading" id="vPc-qE-T6U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C01-sj-zXn"/>
