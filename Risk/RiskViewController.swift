@@ -38,8 +38,78 @@ let decimalF: NumberFormatter = {
 let currencyF: NumberFormatter = {
     let nf = NumberFormatter()
     nf.numberStyle = .currency
+    nf.locale = Locale(identifier: "en_US")
     return nf
 }()
+
+class KeyboardShowTextField: NSObject {
+    var theSV: UIScrollView
+    var oldContentInset = UIEdgeInsets.zero
+    var oldIndicatorInset = UIEdgeInsets.zero
+    var oldOffset = CGPoint.zero
+
+    enum KeyboardState {
+        case unknown
+        case entering
+        case exiting
+    }
+    init(scrollView v: UIScrollView) {
+        theSV = v
+        super.init()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardShow(_ n: Notification) {
+        let d = n.userInfo!
+        let (state, newRect) = keyboardState(for: d, in: theSV)
+        
+        if state == .entering {
+            oldContentInset = theSV.contentInset
+            oldIndicatorInset = theSV.scrollIndicatorInsets
+            oldOffset = theSV.contentOffset
+        }
+        if let rnew = newRect {
+            let h = rnew.intersection(theSV.bounds).height
+            
+            theSV.contentInset.bottom = h
+            theSV.scrollIndicatorInsets.bottom  = h
+        }
+    }
+    @objc func keyboardHide(_ n: Notification) {
+        let d = n.userInfo!
+        let (state, _) = keyboardState(for: d, in: theSV)
+
+        if state == .exiting {
+            theSV.contentOffset = oldOffset
+            theSV.scrollIndicatorInsets = oldIndicatorInset
+            theSV.contentInset = oldContentInset
+        }
+    }
+    func keyboardState(for d:[AnyHashable:Any], in v: UIView?) -> (KeyboardState, CGRect?) {
+        var rold = d[UIKeyboardFrameBeginUserInfoKey] as! CGRect
+        var rnew = d[UIKeyboardFrameEndUserInfoKey] as! CGRect
+        var ks: KeyboardState = .unknown
+        var newRect : CGRect? = nil
+        
+        if let v = v {
+            let co = UIScreen.main.coordinateSpace
+            
+            rold = co.convert(rold, to: v)
+            rnew = co.convert(rnew, to: v)
+            newRect = rnew
+            if !rold.intersects(v.bounds) && rnew.intersects(v.bounds) {
+                ks = .entering
+            }
+            if rold.intersects(v.bounds) && !rnew.intersects(v.bounds) {
+                ks = .exiting
+            }
+        }
+        return (ks, newRect)
+    }
+}
+
 
 class RiskViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource,
 UITextFieldDelegate {
@@ -80,6 +150,10 @@ UITextFieldDelegate {
         accountRiskBtn.isSelected = textField.tag == EditField.AccountRisk.rawValue
         pipRiskBtn.isSelected = textField.tag == EditField.PipRisk.rawValue
     }
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        showPicker = true
+        becomeFirstResponder()
+    }
     
     @IBOutlet weak var accountValue: UITextField!
     @IBOutlet weak var accountRisk: UITextField!
@@ -87,9 +161,21 @@ UITextFieldDelegate {
     @IBOutlet weak var USDRisk: UILabel!
     @IBOutlet weak var availLots: UILabel!
     @IBOutlet weak var currencyPairPicker: UIPickerView!
+    @IBOutlet weak var currencyPairLabel: UILabel!
+    @IBOutlet weak var scrollV: UIScrollView!
+    
     
     let inputAV: UIView! = UINib(nibName: "AccessoryView", bundle: nil).instantiate(withOwner: nil)[0] as! UIView
-    
+    let pickerIVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Picker") as! UIInputViewController
+    var showPicker = false
+
+    override var inputView: UIView? {
+        get {   return pickerIVC.inputView    }
+        set {   print("setting inputView")  }
+    }
+//    override var inputViewController: UIInputViewController?    {   get {   return pickerIVC    }   }
+    override var canBecomeFirstResponder: Bool  {   get {   return showPicker}  }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -106,6 +192,11 @@ UITextFieldDelegate {
         accountValue.clearsOnInsertion = true
         accountRisk.clearsOnInsertion = true
         pipRisk.clearsOnInsertion = true
+        
+//        let picker = pickerIVC.view.viewWithTag(1) as! UIPickerView
+//        
+//        picker.delegate = self
+//        picker.dataSource = self
     }
     
     @objc
@@ -151,5 +242,21 @@ UITextFieldDelegate {
         }
     }
     
+}
+
+class PickerIVC: UIInputViewController, UIPickerViewDelegate  {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("called didSelectRow")
+    }
+    
+    override func viewDidLoad() {
+        let iv = inputView
+        
+        iv?.translatesAutoresizingMaskIntoConstraints = false
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("Picker Did Appear")
+    }
 }
 
